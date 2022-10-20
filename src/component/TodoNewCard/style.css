@@ -1,0 +1,8 @@
+.input{
+    display: flex;
+    flex-direction: column;
+}
+
+.input_box .start_date_box .due_date_box {
+    display: flex;
+}
