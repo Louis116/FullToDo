@@ -1,21 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import "./App.css";
 import NewTask from "./component/TodoNewCard";
-import { todoProps } from "./model";
+
 
 const App: React.FC = () => {
-  
-  const [todo,setTodo] =useState<string | Date>("");
-  const [todolist, setTodolist] = useState<todoProps[]>([]);
 
-  const handleAddNewTask = (e:React.FormEvent) =>{
-    e.preventDefault();
-  }
-
-  return(
+return(
   <div>
     <span className="heading">Task to do</span>
-    <NewTask todo={todo} setTodo={setTodo} handleAddNewTask={handleAddNewTask}/>
+    <NewTask text={""} status={false} />
   </div>
   );
 };

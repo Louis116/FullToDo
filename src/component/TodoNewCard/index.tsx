@@ -1,33 +1,60 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { todoProps } from "../../model";
 
-interface Props {
-  todo: string | Date;
-  setTodo: React.Dispatch<React.SetStateAction<string | Date>>;
-  handleAddNewTask: ()=>void;
-}
+const NewTask: React.FC<todoProps> = ({ text, start_date, due_date }) => {
+  const [task, setTask] = useState<string>("");
+  const [start, setStart] = useState<string>("");
+  const [due, setDue] = useState<string>("");
 
-const NewTask = ({ todo, setTodo, handleAddNewTask}: Props) => {
+  const onTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTask(e.target.value);
+  };
+  const onStartChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setStart(e.target.value);
+  };
+  const onDueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDue(e.target.value);
+  };
+
+  const handleNewTask = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setTask("");
+    setStart("");
+    setDue("");
+  };
+  
+  useEffect(() => {
+    console.log(`Task added ${task}`);
+}, [task]);
+  
+
   return (
-    <form className="input">
-      <div className="input_box" onSubmit={handleAddNewTask}>
-        <label>Task to be done</label>
-        <input
-          type={"text"}
-          id="task_text"
-          onChange={(e) => setTodo(e.target.value)}
-        ></input>
-      </div>
-      <div className="start_date_box">
-        <label>Start Date</label>
-        <input type={"date"} id="start_date"></input>
-      </div>
-      <div className="due_date_box">
-        <label>Due Date</label>
-        <input type={"date"} id="due_date"></input>
-      </div>
-      <button className="input_submit" type="submit">
-        Add Task
-      </button>
+    <form className="TodoNewCard" onSubmit={(e)=>handleNewTask(e)}>
+      <label>Task to be done</label>
+      <input
+        type="text"
+        value={task}
+        name={text}
+        onChange={onTaskChange}
+        required
+      />
+      <label>Start Date</label>
+      <input
+        type="date"
+        value={start}
+        name={start_date?.toLocaleDateString()}
+        onChange={onStartChange}
+        required
+      />
+      <label>Due Date</label>
+      <input
+        type="date"
+        value={due}
+        name={due_date?.toLocaleDateString()}
+        onChange={onDueChange}
+        required
+      />
+      <button type="submit"> Submit </button>
     </form>
   );
 };
